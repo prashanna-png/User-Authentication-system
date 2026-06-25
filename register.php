@@ -1,6 +1,13 @@
 <?php
+session_start();
 require_once 'includes/db.php';
-$error = "";
+$firstname='';
+$lastname = "";
+$email = "";
+$age = "";
+$gender = "";
+$error = $_SESSION['error'] ?? '';
+unset($_SESSION['error']);
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   $firstname = trim($_POST['fname']);
   $lastname = trim($_POST['lname']);
@@ -14,7 +21,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $email === '' || $age === '' ||
     $gender === '' || $password === '' ||
     $confirm === ''){
-    $error = "All fields are required";
+      $_SESSION['error'] = "All fields are required";
+      header("Location: register.php");
+      exit;
   }
 
   elseif(!preg_match("/^[A-Za-z]+$/", $firstname)){
@@ -26,7 +35,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   }
 
   elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-    $error = "Invalid email format";
+    $_SESSION['error'] = "Invalid email format";
+    header("Location: register.php");
+    exit;
   }
 
   elseif(!is_numeric($age) || $age < 1 || $age > 120){
@@ -46,7 +57,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $result = mysqli_query($conn, $check_email);
 
     if (mysqli_num_rows($result) > 0) {
-      $error = "Email already exists";
+      $_SESSION['error'] = "Email already exists";
+      header("Location: register.php");
+      exit;
     }
     else{
       $hashed_password = password_hash($password, PASSWORD_DEFAULT);
