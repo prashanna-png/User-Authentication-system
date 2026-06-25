@@ -97,11 +97,11 @@ mysqli_close($conn);
           <input type="text" id="lname" name="lname">
         </div>
       </div>
-      <label for="email">Email:</label><br>
-      <input type="email" id="email" name="email"><br><br>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email">
 
-      <label for="age">Age:</label><br>
-      <input type="number" id="age" name="age"><br><br>
+      <label for="age">Age:</label>
+      <input type="text" id="age" name="age">
 
       <div class="gender">
           <input type="radio" id="male" name="gender" value="male">
@@ -111,11 +111,11 @@ mysqli_close($conn);
           <label for="female">Female</label>
       </div>
 
-      <label for="password">Password:</label><br>
-      <input type="password" id="password" name="password"><br><br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password">
 
-      <label for="confirm">Confirm Password:</label><br>
-      <input type="password" id="confirm" name="confirm_password"><br><br>
+      <label for="confirm">Confirm Password:</label>
+      <input type="password" id="confirm" name="confirm_password">
 
       <input type="submit" value="Register">
 
