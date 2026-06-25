@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "first_name": "prashanna",
+    "last_name": "dongol",
+    "email": "ram@gmail.com",
+    "age": 12,
+    "gender": "male",
+    "password_hash": "$2y$10$zKKTEwvRtqieIwxi313WJuY1MVsHZvwJ11DTjV1OTzX/Z4cf8CXP6",
+    "created_at": "2026-06-25 13:41:22"
+  },
+  {
+    "id": 2,
+    "first_name": "prashanna",
+    "last_name": "dongol",
+    "email": "psssf@gmail.com",
+    "age": 12,
+    "gender": "male",
+    "password_hash": "$2y$10$ooMX.ECQYe4kUSxIFG0whewzM/fuVv2itD0vOD7eVhJqjAlefzbSG",
+    "created_at": "2026-06-25 13:45:23"
+  },
+  {
+    "id": 3,
+    "first_name": "asdasd",
+    "last_name": "asdasd",
+    "email": "hari@gmail.om",
+    "age": 30,
+    "gender": "female",
+    "password_hash": "$2y$10$aM/fcqcTVYjm9QGFSrzZOe0I432ZyKKCo8NlJbWKEVuLGqM.FKm0u",
+    "created_at": "2026-06-25 14:00:05"
+  }
+]

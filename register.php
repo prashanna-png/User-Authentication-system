@@ -1,5 +1,6 @@
 <?php
 require_once 'includes/db.php';
+$error = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   $firstname = trim($_POST['fname']);
   $lastname = trim($_POST['lname']);
@@ -13,31 +14,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $email === '' || $age === '' ||
     $gender === '' || $password === '' ||
     $confirm === ''){
-    echo "All fields are required";
+    $error = "All fields are required";
   }
 
   elseif(!preg_match("/^[A-Za-z]+$/", $firstname)){
-    echo "Only letters are allowed in first name";
+    $error = "Only letters are allowed in first name";
   }
 
   elseif(!preg_match("/^[A-Za-z]+$/", $lastname)){
-    echo "Only letters are allowed in last name";
+    $error = "Only letters are allowed in last name";
   }
 
   elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-    echo "Invalid email format";
+    $error = "Invalid email format";
   }
 
   elseif(!is_numeric($age) || $age < 1 || $age > 120){
-    echo "Please enter a valid age";
+    $error = "Please enter a valid age";
   }
 
   elseif($gender != "male" && $gender != "female"){
-    echo "Please select a valid gender";
+    $error = "Please select a valid gender";
   }
 
   elseif($password != $confirm){
-    echo "Passwords do not match";
+    $error = "Passwords do not match";
   }
 
   else{
@@ -45,7 +46,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $result = mysqli_query($conn, $check_email);
 
     if (mysqli_num_rows($result) > 0) {
-      echo "Email already exists";
+      $error = "Email already exists";
     }
     else{
       $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -59,7 +60,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         exit;
       } 
       else {
-        echo "Error: " . mysqli_error($conn);
+        $error = "Error: " . mysqli_error($conn);
       }
     }
   }
@@ -74,29 +75,41 @@ mysqli_close($conn);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Authentication</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-  <div>
+  <div class="container">
+    <h1>Register</h1>
+    <?php if(!empty($error)): ?>
+        <div class="error-message">
+            <?php echo $error; ?>
+        </div>
+    <?php endif; ?>
     <form action="" method="POST">
-
-      <label for="fname">First Name:</label><br>
-      <input type="text" id="fname" name="fname"><br><br>
-
-      <label for="lname">Last Name:</label><br>
-      <input type="text" id="lname" name="lname"><br><br>
-
+      <div class="name">
+        <div>
+          <label for="fname">First Name:</label>
+          <input type="text" id="fname" name="fname">
+        </div>
+        <div>
+          <label for="lname">Last Name:</label>
+          <input type="text" id="lname" name="lname">
+        </div>
+      </div>
       <label for="email">Email:</label><br>
       <input type="email" id="email" name="email"><br><br>
 
       <label for="age">Age:</label><br>
       <input type="number" id="age" name="age"><br><br>
 
-      <input type="radio" id="male" name="gender" value="male">
-      <label for="male">Male</label>
+      <div class="gender">
+          <input type="radio" id="male" name="gender" value="male">
+          <label for="male">Male</label>
 
-      <input type="radio" id="female" name="gender" value="female">
-      <label for="female">Female</label><br><br>
+          <input type="radio" id="female" name="gender" value="female">
+          <label for="female">Female</label>
+      </div>
 
       <label for="password">Password:</label><br>
       <input type="password" id="password" name="password"><br><br>
