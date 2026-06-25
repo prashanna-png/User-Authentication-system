@@ -1,5 +1,5 @@
 <?php
-include 'insert/db.php';
+require_once 'includes/db.php';
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   $firstname = trim($_POST['fname']);
   $lastname = trim($_POST['lname']);
@@ -41,32 +41,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   }
 
   else{
-    if (!$conn) {
-      die("Connection failed: " . mysqli_connect_error());
-    }
     $check_email = "SELECT * FROM users where email='$email'";
     $result = mysqli_query($conn, $check_email);
+
     if (mysqli_num_rows($result) > 0) {
       echo "Email already exists";
     }
     else{
       $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-    }
+      $sql = "INSERT INTO users
+      (first_name, last_name, email, age, gender, password_hash)
+      VALUES
+      ('$firstname', '$lastname', '$email', '$age', '$gender', '$hashed_password')";
 
-    $sql = "INSERT INTO users
-    (first_name, last_name, email, age, gender, password_hash)
-    VALUES
-    ('$firstname', '$lastname', '$email', '$age', '$gender', '$hashed_password')";
-
-    if (mysqli_query($conn, $sql)) {
-      header("Location: login.php?registered=1");
-      exit;
-    } 
-    else {
-      echo "Error: " . mysqli_error($conn);
+      if (mysqli_query($conn, $sql)) {
+        header("Location: login.php?registered=1");
+        exit;
+      } 
+      else {
+        echo "Error: " . mysqli_error($conn);
+      }
     }
   }
 }
+mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
