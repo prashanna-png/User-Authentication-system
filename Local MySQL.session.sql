@@ -11,3 +11,4 @@ CREATE TABLE users (
 );
 SELECT *
 from users;
+DROP TABLE users;
