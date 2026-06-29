@@ -10,6 +10,7 @@
 <body>
   <div class="container">
     <h1>User Authentication System</h1>
+    <p>Create an account or log in to continue</p>
     <form action="register.php">
       <button type="submit" class="create">Create Account</button>
     </form>

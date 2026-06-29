@@ -131,8 +131,8 @@ mysqli_close($conn);
       <input type="password" id="confirm" name="confirm_password">
 
       <input type="submit" value="Register">
-
     </form>
+    <p>Already have an account? <a href="login.php">Log in</a></p>
   </div>
 </body>
 
